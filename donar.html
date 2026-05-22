@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Donar con propósito – ITAM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===========================
+       VARIABLES Y BASE
+       =========================== */
+    :root {
+      --green:        #006853;
+      --green-dark:   #004a3b;
+      --green-deeper: #002d22;
+      --green-light:  #008f6e;
+      --green-soft:   #e6f4ef;
+      --gold:         #c9a227;
+      --gold-light:   #f5e9b8;
+      --white:        #ffffff;
+      --off-white:    #f8faf9;
+      --text:         #1a1a1a;
+      --text-muted:   #5a6b65;
+      --border:       #d8e8e2;
+      --shadow-sm:    0 2px 12px rgba(0,104,83,.08);
+      --shadow-md:    0 8px 32px rgba(0,104,83,.13);
+      --shadow-lg:    0 20px 60px rgba(0,104,83,.18);
+      --radius:       12px;
+      --radius-lg:    20px;
+      --max-width:    1200px;
+      --transition:   .22s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', 'DIN Next', Calibri, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    h1,h2,h3,h4,h5 {
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    ul { padding-left: 1.25rem; }
+    li { margin-bottom: .4rem; }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ===========================
+       PLECA Y HEADER
+       =========================== */
+    .top-pleca {
+      height: 4px;
+      background: linear-gradient(90deg, var(--green-deeper), var(--green), var(--gold));
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 20px rgba(0,0,0,.06);
+      transition: box-shadow var(--transition);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: .9rem 1.5rem;
+      gap: 1rem;
+    }
+
+    .logo-area { display: flex; flex-direction: column; }
+
+    .logo-itam {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-size: .7rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: .875rem;
+      font-weight: 500;
+    }
+
+    .main-nav a {
+      color: var(--text);
+      position: relative;
+      padding-bottom: 3px;
+      transition: color var(--transition);
+    }
+
+    .main-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 2px;
+      background: var(--green);
+      border-radius: 2px;
+      transition: width var(--transition);
+    }
+
+    .main-nav a:hover { color: var(--green); text-decoration: none; }
+    .main-nav a:hover::after { width: 100%; }
+
+    .btn-donar-header {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .55rem 1.4rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--white) !important;
+      font-size: .875rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+      box-shadow: 0 4px 16px rgba(0,104,83,.35);
+    }
+
+    .btn-donar-header:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(0,104,83,.45);
+      filter: brightness(1.08);
+    }
+
+    @media (max-width: 900px) {
+      .header-inner { flex-wrap: wrap; gap: .6rem; }
+      .main-nav { flex-wrap: wrap; gap: .75rem; }
+    }
+
+    /* ===========================
+       BOTONES
+       =========================== */
+    .btn-primary, .btn-secondary, .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .7rem 1.6rem;
+      border-radius: 999px;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition), filter var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(0,104,83,.3);
+    }
+    .btn-primary:hover {
+      text-decoration: none;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,104,83,.4);
+      filter: brightness(1.08);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--green);
+      border-color: var(--green);
+    }
+    .btn-secondary:hover {
+      text-decoration: none;
+      background: var(--green-soft);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--green);
+      border-color: var(--green);
+    }
+    .btn-outline:hover {
+      text-decoration: none;
+      background: var(--green);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .75rem 1.8rem;
+      border-radius: 999px;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--gold), #a07d18);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(201,162,39,.4);
+      transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+    }
+    .btn-gold:hover {
+      text-decoration: none;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201,162,39,.5);
+      filter: brightness(1.08);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 1.25rem;
+      align-items: center;
+    }
+
+    .section-eyebrow {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    /* ===========================
+       HERO
+       =========================== */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--green-deeper) 0%, var(--green-dark) 50%, var(--green) 100%);
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Decorative shapes */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,143,110,.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -160px; left: -80px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,162,39,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 1.5rem 5rem;
+      gap: 3rem;
+      width: 100%;
+    }
+
+    .hero-text { max-width: 600px; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25);
+      backdrop-filter: blur(8px);
+      border-radius: 999px;
+      padding: .35rem 1rem;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.9);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge span { color: var(--gold); }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      letter-spacing: -.02em;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: rgba(255,255,255,.8);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .hero-intro {
+      font-size: .95rem;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 1rem;
+    }
+
+    .hero-media {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .hero-image-placeholder {
+      width: 100%;
+      min-height: 340px;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(4px);
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-image-placeholder::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+        rgba(0,104,83,.3) 0%,
+        transparent 60%);
+    }
+
+    /* Hero image placeholder decorative grid */
+    .hero-image-placeholder::after {
+      content: "📸";
+      font-size: 3rem;
+      opacity: .2;
+    }
+
+    @media (min-width: 900px) {
+      .hero-inner {
+        flex-direction: row;
+        align-items: center;
+      }
+      .hero-text { flex: 1.1; }
+      .hero-media { flex: 1; }
+    }
+
+    /* ===========================
+       STATS STRIP
+       =========================== */
+    .stats-strip {
+      background: var(--green-deeper);
+      padding: 2.5rem 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    @media (min-width: 700px) {
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-number {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: .35rem;
+      letter-spacing: -.02em;
+    }
+
+    .stat-label {
+      font-size: .8rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.65);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .stat-divider {
+      width: 1px;
+      background: rgba(255,255,255,.1);
+      display: none;
+    }
+    @media (min-width: 700px) { .stat-divider { display: block; } }
+
+    /* ===========================
+       SECCIONES GENERALES
+       =========================== */
+    section { padding: 5rem 0; }
+
+    .section-alt { background: var(--off-white); }
+    .section-dark {
+      background: linear-gradient(135deg, var(--green-deeper), var(--green-dark));
+      color: var(--white);
+    }
+    .section-dark h2, .section-dark h3, .section-dark p { color: var(--white); }
+    .section-dark .section-eyebrow { background: linear-gradient(90deg, var(--gold), #f5d060); }
+
+    .section-blue {
+      background: linear-gradient(135deg, #e8f4ef 0%, #d1ecdf 100%);
+    }
+
+    .split-section {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      align-items: flex-start;
+    }
+    .split-left, .split-right { flex: 1; width: 100%; }
+
+    @media (min-width: 900px) {
+      .split-section { flex-direction: row; align-items: center; }
+    }
+
+    .section-center-text {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .section-center-text .section-eyebrow { margin-left: auto; margin-right: auto; }
+
+    h2 {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 1rem;
+    }
+
+    /* ===========================
+       IMAGE PLACEHOLDERS
+       =========================== */
+    .img-placeholder {
+      width: 100%;
+      min-height: 300px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--green-soft), #c8e8da);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .img-placeholder::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(0,104,83,.15) 0%, transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(201,162,39,.1) 0%, transparent 50%);
+    }
+
+    .img-placeholder::after {
+      content: "🎓";
+      font-size: 3.5rem;
+      opacity: .25;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===========================
+       TABS BAR SECUNDARIA
+       =========================== */
+    .tabs-bar-wrapper {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 65px;
+      z-index: 100;
+      box-shadow: 0 4px 16px rgba(0,0,0,.04);
+    }
+
+    .tabs-bar {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .25rem;
+    }
+
+    .tabs-bar a {
+      color: var(--text-muted);
+      font-size: .85rem;
+      font-weight: 500;
+      padding: 1rem .85rem;
+      position: relative;
+      white-space: nowrap;
+      transition: color var(--transition);
+    }
+
+    .tabs-bar a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      border-radius: 3px 3px 0 0;
+      transition: width var(--transition);
+    }
+
+    .tabs-bar a:hover { color: var(--green); text-decoration: none; }
+    .tabs-bar a:hover::after { width: 100%; }
+
+    /* ===========================
+       TARJETAS DE FONDOS
+       =========================== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (min-width: 600px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .cards-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .fund-card-link { text-decoration: none; color: inherit; }
+
+    .fund-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+    }
+
+    .fund-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--green), var(--gold));
+      border-radius: 0 0 0 0;
+    }
+
+    .fund-card::after {
+      content: "";
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,104,83,.05) 0%, transparent 70%);
+      transition: transform var(--transition);
+    }
+
+    .fund-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+      color: var(--text);
+      transition: color var(--transition);
+    }
+
+    .fund-card-arrow {
+      font-size: .8rem;
+      color: var(--green);
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    .fund-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      border-color: rgba(0,104,83,.25);
+    }
+
+    .fund-card:hover h3 { color: var(--green); }
+    .fund-card:hover .fund-card-arrow { opacity: 1; transform: translateX(0); }
+    .fund-card:hover::after { transform: scale(2); }
+
+    /* ===========================
+       SECCIONES BECAS
+       =========================== */
+    .scholarship-section {
+      border-top: 1px solid var(--border);
+      padding-top: 3rem;
+      margin-top: 2rem;
+    }
+
+    .scholarship-section h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: .6rem;
+      color: var(--green-dark);
+    }
+
+    .scholarship-meta {
+      font-size: .925rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: var(--green-soft);
+      border-radius: var(--radius);
+      border-left: 3px solid var(--green);
+    }
+
+    .scholarship-meta h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: .75rem;
+    }
+
+    /* ===========================
+       TESTIMONIOS
+       =========================== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (min-width: 700px) {
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .testimonial-card::before {
+      content: "\201C";
+      position: absolute;
+      top: 1rem; left: 1.25rem;
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--green-soft);
+      font-family: Georgia, serif;
+      font-weight: 900;
+    }
+
+    .testimonial-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--green-dark);
+      margin-top: 1rem;
+      padding-top: .75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .quote {
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.7;
+      padding-top: 1.5rem;
+    }
+
+    .section-dark .testimonial-card {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.15);
+    }
+    .section-dark .testimonial-card::before { color: rgba(255,255,255,.08); }
+    .section-dark .testimonial-name { color: var(--gold); border-color: rgba(255,255,255,.15); }
+    .section-dark .quote { color: rgba(255,255,255,.75); }
+
+    /* ===========================
+       PROYECCIÓN — PILARES
+       =========================== */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    @media (min-width: 700px) {
+      .pillars-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .pillar-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+
+    .pillar-icon {
+      font-size: 2rem;
+      margin-bottom: .75rem;
+    }
+
+    .pillar-title {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: .35rem;
+    }
+
+    .pillar-desc {
+      font-size: .8rem;
+      color: rgba(255,255,255,.65);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ===========================
+       OTRAS INICIATIVAS
+       =========================== */
+    .initiatives-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (min-width: 900px) {
+      .initiatives-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .initiative-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.5rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .initiative-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .initiative-icon {
+      width: 48px; height: 48px;
+      background: var(--green-soft);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: .75rem;
+    }
+
+    .initiative-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: .6rem;
+    }
+
+    /* ===========================
+       CONTACTO
+       =========================== */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.1rem;
+      margin-top: 1.75rem;
+    }
+
+    @media (min-width: 700px) {
+      .form-grid-two { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    label {
+      font-size: .85rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--text);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="date"],
+    textarea, select {
+      width: 100%;
+      padding: .7rem 1rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      font-family: inherit;
+      font-size: .95rem;
+      background: var(--white);
+      color: var(--text);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(0,104,83,.12);
+    }
+
+    textarea { min-height: 120px; resize: vertical; }
+
+    /* ===========================
+       WIZARD DE DONATIVO
+       =========================== */
+    .donation-wizard {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      margin-top: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .wizard-steps {
+      display: flex;
+      gap: .5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .wizard-step {
+      flex: 1;
+      min-width: 140px;
+      text-align: center;
+      padding: .6rem .5rem;
+      border-radius: 8px;
+      background: var(--off-white);
+      color: var(--text-muted);
+      font-size: .75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      border: 1.5px solid var(--border);
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+    }
+
+    .wizard-radio { display: none; }
+
+    #step1:checked ~ .donation-wizard .wizard-step.step1,
+    #step2:checked ~ .donation-wizard .wizard-step.step2,
+    #step3:checked ~ .donation-wizard .wizard-step.step3,
+    #step4:checked ~ .donation-wizard .wizard-step.step4 {
+      background: var(--green);
+      color: var(--white);
+      border-color: var(--green);
+    }
+
+    .wizard-progress {
+      position: relative;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--green-soft);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .wizard-progress-bar {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 25%;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      transition: width .4s ease;
+      border-radius: 999px;
+    }
+
+    #step1:checked ~ .donation-wizard .wizard-progress-bar { width: 25%; }
+    #step2:checked ~ .donation-wizard .wizard-progress-bar { width: 50%; }
+    #step3:checked ~ .donation-wizard .wizard-progress-bar { width: 75%; }
+    #step4:checked ~ .donation-wizard .wizard-progress-bar { width: 100%; }
+
+    .wizard-step-content { display: none; }
+
+    #step1:checked ~ .donation-wizard .wizard-step-content.step1,
+    #step2:checked ~ .donation-wizard .wizard-step-content.step2,
+    #step3:checked ~ .donation-wizard .wizard-step-content.step3,
+    #step4:checked ~ .donation-wizard .wizard-step-content.step4 {
+      display: block;
+      animation: fadeUp .3s ease;
+    }
+
+    .wizard-step-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wizard-navigation {
+      display: flex;
+      justify-content: flex-end;
+      gap: .75rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .wizard-nav-label { cursor: pointer; }
+
+    /* Amount buttons */
+    .amount-options { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+
+    .amount-option {
+      position: relative;
+    }
+
+    .amount-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+
+    .amount-option label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .55rem 1.2rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: all var(--transition);
+      margin: 0;
+      user-select: none;
+    }
+
+    .amount-option input[type="radio"]:checked + label {
+      background: var(--green);
+      color: var(--white);
+      border-color: var(--green);
+      box-shadow: 0 4px 12px rgba(0,104,83,.25);
+    }
+
+    .amount-option label:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* ===========================
+       INVITA A OTROS
+       =========================== */
+    .share-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 1.25rem;
+    }
+
+    /* ===========================
+       FOOTER
+       =========================== */
+    .site-footer {
+      background: linear-gradient(135deg, var(--green-deeper), #0a1510);
+      color: rgba(255,255,255,.75);
+      padding: 3.5rem 0 2rem;
+      margin-top: 0;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 700px) {
+      .footer-top { grid-template-columns: 2fr 1fr 1fr; }
+    }
+
+    .footer-brand .footer-logo {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: .35rem;
+    }
+
+    .footer-brand .footer-tagline {
+      font-size: .85rem;
+      color: rgba(255,255,255,.5);
+      font-style: italic;
+      margin-bottom: 0;
+    }
+
+    .footer-col h4 {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,.6);
+      font-size: .875rem;
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--white); text-decoration: none; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .75rem;
+      font-size: .8rem;
+      color: rgba(255,255,255,.4);
+    }
+
+    .footer-contact a { color: rgba(255,255,255,.6); }
+    .footer-contact a:hover { color: var(--white); text-decoration: none; }
+
+    /* ===========================
+       ANIMATIONS
+       =========================== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ===========================
+       IMPACT STRIP (donantes)
+       =========================== */
+    .impact-strip {
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .impact-strip h2 { color: var(--white); margin-bottom: .75rem; }
+    .impact-strip p { color: rgba(255,255,255,.8); max-width: 600px; margin: 0 auto 1.5rem; }
+
+    /* ===========================
+       MISC
+       =========================== */
+    .highlight-box {
+      background: var(--green-soft);
+      border-left: 4px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-box p { margin: 0; font-weight: 500; color: var(--green-dark); }
+
+    strong { color: var(--green-dark); }
+
+  </style>
+</head>
+<body>
+
+  <!-- Pleca superior -->
+  <div class="top-pleca"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-itam">ITAM</div>
+        <div class="logo-sub">Impulso · Proyección</div>
+      </div>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#por-que-donar">¿Por qué donar?</a>
+        <a href="#impacto-inicial">Impacto</a>
+        <a href="#impulso-itam">Impulso ITAM</a>
+        <a href="#proyeccion-inicial">Proyección ITAM</a>
+        <a href="#fondo-nuestro-itam" class="btn-donar-header">✦ Dona ahora</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+      <div class="hero-inner">
+        <div class="hero-text reveal">
+          <div class="hero-badge">✦ <span>ITAM</span> · Educación que transforma</div>
+          <h1 class="hero-title">Donar con <em>propósito.</em><br>Transformar vidas.</h1>
+          <p class="hero-subtitle">Haz posible que más jóvenes con talento estudien en el ITAM.</p>
+          <p class="hero-intro">
+            En el ITAM creemos que ningún estudiante debería dejar sus estudios por falta de recursos. Gracias a programas como Impulso ITAM y Proyección ITAM, cientos de jóvenes continúan su formación y desarrollan todo su potencial.
+          </p>
+          <p class="hero-intro">
+            Tú puedes ser parte de esta transformación: elige apoyar de manera constante o con un donativo que deje huella en su futuro.
+          </p>
+          <div class="button-row">
+            <a href="#fondo-nuestro-itam" class="btn-gold">Dona ahora →</a>
+            <a href="#impacto-pestana" class="btn-secondary" style="color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1);">Ver testimonios</a>
+          </div>
+        </div>
+        <div class="hero-media reveal reveal-delay-2">
+          <div class="hero-image-placeholder">
+            <!-- imagen institucional de becarios ITAM -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <div class="stats-strip">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-number" data-target="800">0</div>
+          <div class="stat-label">Becarios apoyados</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-1">
+          <div class="stat-number">11</div>
+          <div class="stat-label">Fondos activos</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-2">
+          <div class="stat-number">100<span style="font-size:1.5rem">%</span></div>
+          <div class="stat-label">Llega al estudiante</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-3">
+          <div class="stat-number">20<span style="font-size:1.5rem">+</span></div>
+          <div class="stat-label">Años de impacto</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ¿POR QUÉ DONAR? -->
+    <section id="por-que-donar" class="section-alt">
+      <div class="container">
+        <div class="split-section">
+          <div class="split-left reveal">
+            <div class="section-eyebrow"></div>
+            <h2>¿Por qué donar?</h2>
+            <p>
+              El ITAM se propone contribuir a la formación integral de una sociedad más libre, justa y próspera, utilizando como motor de cambio principal a la educación.
+            </p>
+            <p>
+              Además de la colegiatura, los estudiantes enfrentan otros gastos de manutención, transporte, libros y vivienda. Por eso, en 2006 nació la Beca Nuestro ITAM, para otorgar apoyos de manutención a estudiantes de excelencia con necesidad económica.
+            </p>
+            <p>
+              Cada mes, nuestros becarios reciben un apoyo económico que les permite concentrarse en sus estudios y alcanzar sus metas académicas.
+            </p>
+            <div class="highlight-box">
+              <p>💚 <strong>$2,500</strong> pesos para alimentación, transporte y libros · <strong>$4,500</strong> adicionales para alojamiento (alumnos foráneos)</p>
+            </div>
+          </div>
+          <div class="split-right reveal reveal-delay-2">
+            <div class="img-placeholder">
+              <!-- imagen de estudiantes ITAM -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACTO INICIAL -->
+    <section id="impacto-inicial">
+      <div class="container split-section">
+        <div class="split-left reveal">
+          <div class="section-eyebrow"></div>
+          <h2>Impacto real,<br>vidas transformadas.</h2>
+          <p>Más de 800 becarios han podido concluir sus estudios gracias al apoyo de la comunidad ITAM.</p>
+          <p><strong>100% de los recursos donados llega directamente a los estudiantes;</strong> el ITAM no cobra cuotas de administración.</p>
+          <p>Cada año, nuevos exalumnos y amigos del ITAM se suman para seguir transformando vidas a través de la educación.</p>
+          <div class="button-row">
+            <a href="#impacto-pestana" class="btn-secondary">Ver testimonios →</a>
+          </div>
+        </div>
+        <div class="split-right reveal reveal-delay-2">
+          <div class="img-placeholder" style="background: linear-gradient(135deg,#d1ecdf,#a8d9c2);">
+            <!-- imagen impacto -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPULSO ITAM -->
+    <section id="impulso-itam" class="section-alt">
+      <div class="container">
+        <div class="section-eyebrow"></div>
+        <h2 class="reveal">Impulso ITAM</h2>
+        <p class="reveal"><strong>Impulsa el talento, transforma el mañana</strong></p>
+        <p class="reveal">
+          Impulso ITAM nació del deseo de que ningún estudiante con talento tenga que abandonar sus sueños por falta de recursos.
+          Hoy reúne <strong>11 fondos activos</strong> que brindan apoyo para la manutención, el alojamiento, formación académica y oportunidades de intercambio para nuestros becarios.
+        </p>
+
+        <div class="cards-grid" aria-label="Fondos de Impulso ITAM">
+          <a href="#fondo-nuestro-itam" class="fund-card-link">
+            <article class="fund-card reveal">
+              <h3>Fondo Nuestro ITAM</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+          <a href="#beca-bailleres" class="fund-card-link">
+            <article class="fund-card reveal reveal-delay-1">
+              <h3>Beca Baillères</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+          <a href="#fondo-miguel-mancera" class="fund-card-link">
+            <article class="fund-card reveal reveal-delay-2">
+              <h3>Fondo Miguel Mancera</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+          <a href="#fondo-javier-beristain" class="fund-card-link">
+            <article class="fund-card reveal">
+              <h3>Fondo Javier Beristain Iturbide</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+          <a href="#fondo-rurik-magos" class="fund-card-link">
+            <article class="fund-card reveal reveal-delay-1">
+              <h3>Fondo Rurik Magos Acosta</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+          <a href="#fondo-amigos-rio-hondo" class="fund-card-link">
+            <article class="fund-card reveal reveal-delay-2">
+              <h3>Fondo Amigos de Río Hondo</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+          <a href="#fondo-bal" class="fund-card-link">
+            <article class="fund-card reveal">
+              <h3>Fondo Baleños por la Educación</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+          <a href="#fondo-intercambio" class="fund-card-link">
+            <article class="fund-card reveal reveal-delay-1">
+              <h3>Fondo de Intercambio Académico</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+          <a href="#fondo-alonso-lujambio" class="fund-card-link">
+            <article class="fund-card reveal reveal-delay-2">
+              <h3>Fondo Alonso Lujambio</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+          <a href="#fondo-mipi" class="fund-card-link">
+            <article class="fund-card reveal">
+              <h3>Fondo MIPi</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+          <a href="#fondo-aef" class="fund-card-link">
+            <article class="fund-card reveal reveal-delay-1">
+              <h3>Fondo AEF</h3>
+              <span class="fund-card-arrow">Ver fondo →</span>
+            </article>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECCIÓN ITAM INICIAL -->
+    <section id="proyeccion-inicial" class="section-dark">
+      <div class="container">
+        <div class="section-center-text reveal">
+          <div class="section-eyebrow"></div>
+          <h2>Proyección ITAM</h2>
+          <p style="color:rgba(255,255,255,.8);">
+            Los donativos de alto impacto permiten que el ITAM siga creciendo y ofreciendo educación de excelencia a miles de jóvenes. Con Proyección ITAM, puedes impulsar proyectos que trascienden: desde becas académicas y programas de investigación, hasta iniciativas de emprendimiento e infraestructura que fortalecen a toda nuestra comunidad.
+          </p>
+        </div>
+
+        <div class="pillars-grid reveal">
+          <div class="pillar-card">
+            <div class="pillar-icon">🎓</div>
+            <div class="pillar-title">Becas</div>
+            <p class="pillar-desc">Consolidación del Programa de Becas ITAM</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🚀</div>
+            <div class="pillar-title">Emprendimiento</div>
+            <p class="pillar-desc">Fomento a la innovación y el emprendimiento</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🔬</div>
+            <div class="pillar-title">Investigación</div>
+            <p class="pillar-desc">Impulso a la investigación para generar conocimiento</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🏛️</div>
+            <div class="pillar-title">Infraestructura</div>
+            <p class="pillar-desc">Espacios físicos de vanguardia</p>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:2.5rem;" class="reveal">
+          <a href="#proyeccion-itam" class="btn-gold">Conoce más →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BARRA DE PESTAÑAS -->
+    <div id="tabs" class="tabs-bar-wrapper">
+      <nav class="tabs-bar" aria-label="Pestañas de contenido">
+        <a href="#inicio">Inicio</a>
+        <a href="#becas">Becas</a>
+        <a href="#proyeccion-itam">Proyección ITAM</a>
+        <a href="#impacto-pestana">Impacto</a>
+        <a href="#donantes">Donantes</a>
+        <a href="#otras-iniciativas">Otras iniciativas</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+
+    <!-- PESTAÑA BECAS -->
+    <section id="becas">
+      <div class="container">
+        <div class="section-eyebrow"></div>
+        <h2>Becas</h2>
+
+        <!-- Fondo Nuestro ITAM -->
+        <article id="fondo-nuestro-itam" class="scholarship-section reveal">
+          <h3>Fondo Nuestro ITAM</h3>
+          <p>
+            La Beca Nuestro ITAM nació en 2006 como una continuación del compromiso iniciado en 2003 por el arquitecto Ángel Borja, quien impulsó la primera beca de manutención para estudiantes con necesidad económica.
+          </p>
+          <p>
+            Desde entonces, exalumnos, profesores, colaboradores y amigos del ITAM se han unido mes a mes para sostener este proyecto, que ha beneficiado a más de 200 becarios.
+          </p>
+          <p>
+            Gracias a estas aportaciones, los estudiantes reciben un apoyo mensual de $2,500 pesos para gastos de alimentación, transporte y materiales, y $4,500 pesos para alojamiento en el caso de alumnos foráneos. Este apoyo les permite enfocarse plenamente en sus estudios y alcanzar sus metas académicas.
+          </p>
+          <p>
+            Tus donativos son deducibles de impuestos y llegan íntegros a los estudiantes, ya que el ITAM no cobra ninguna cuota de administración. Además, recibirás reportes anuales con los montos recaudados y el número de alumnos apoyados, asegurando transparencia en el uso de los recursos.
+          </p>
+          <p>
+            Con tu apoyo, más jóvenes con talento podrán continuar su formación y contribuir al desarrollo de nuestro país.
+          </p>
+          <div class="button-row">
+            <a class="btn-primary" href="#">Donar por tarjeta: Liga Directa al Fondo NI</a>
+            <a class="btn-outline" href="#">Donar por transferencia</a>
+            <a class="btn-outline" href="#">Lineamientos</a>
+            <a class="btn-outline" href="#">Reporte Anual</a>
+            <a class="btn-outline" href="#">Reportes Pasados</a>
+            <a class="btn-outline" href="https://donar.itam.mx/es/69/paginas/historia-beca-nuestro-itam" target="_blank" rel="noopener">Historia</a>
+          </div>
+        </article>
+
+        <!-- Beca Baillères -->
+        <article id="beca-bailleres" class="scholarship-section reveal">
+          <h3>Beca Baillères</h3>
+          <p>
+            Don Alberto Baillères, convencido de que la educación es el camino hacia un México más justo y próspero, creó esta beca para garantizar que los alumnos más destacados puedan estudiar en el ITAM.
+          </p>
+          <p>
+            La Beca Baillères otorga el 100% de la colegiatura a los estudiantes de nuevo ingreso con los índices de admisión más altos en cada licenciatura e ingeniería, y mantiene el apoyo durante toda la carrera siempre que el beneficiario conserve un perfil de excelencia académica.
+          </p>
+        </article>
+
+        <!-- Fondo Miguel Mancera -->
+        <article id="fondo-miguel-mancera" class="scholarship-section reveal">
+          <h3>Fondo Miguel Mancera</h3>
+          <p>
+            Convencidos de que toda persona con talento y compromiso merece la oportunidad de desarrollar su potencial, sin importar su situación económica, en el ITAM ofrecemos uno de los programas de becas y ayuda financiera más amplios del país. En los últimos diez años, más de 5,500 estudiantes de licenciatura han concluido exitosamente sus estudios gracias a estos apoyos.
+          </p>
+          <p>
+            En este espíritu, Don Miguel Mancera creó en 1994 un fideicomiso con el propósito de otorgar becas de manutención a estudiantes con necesidad económica, motivado por su deseo de "devolver a la sociedad y al ITAM algo de lo que he recibido de ellos".
+          </p>
+          <p>
+            Desde su creación, la Beca Miguel Mancera ha beneficiado a más de 188 estudiantes, brindándoles un apoyo mensual de aproximadamente $2,500 pesos para cubrir sus gastos de manutención.
+          </p>
+          <p>
+            Con una aportación desde $250 mensuales puedes sumarte a este esfuerzo y transformar la vida de jóvenes de excelencia académica que enfrentan dificultades económicas.
+          </p>
+          <p>
+            Tus donativos se depositan directamente en el fideicomiso Miguel Mancera, y ni el ITAM ni la Asociación Mexicana de Cultura, A.C. cobran cuotas de administración. El 100% de los recursos llega íntegramente a los becarios.
+          </p>
+          <p>
+            Tu apoyo es la oportunidad que les permite seguir estudiando y construir un mejor futuro para México.
+          </p>
+          <div class="button-row">
+            <a class="btn-primary" href="#">Donar por tarjeta: Liga directa al Fondo MM</a>
+            <a class="btn-outline" href="#">Donar por transferencia</a>
+            <a class="btn-outline" href="#">Lineamientos</a>
+            <a class="btn-outline" href="#">Reporte Anual</a>
+            <a class="btn-outline" href="#">Reportes Pasados</a>
+            <a class="btn-outline" href="#">Historia</a>
+          </div>
+
+          <div class="scholarship-meta">
+            <h4>Historia de Don Miguel Mancera</h4>
+            <p>
+              Don Miguel Mancera Aguayo es Licenciado en Economía por el Instituto Tecnológico Autónomo de México (ITAM) y Maestro en Economía por la Universidad de Yale. A lo largo de su vida ha sido un pilar en el desarrollo económico y académico del país.
+            </p>
+            <p>
+              Inició su carrera en el Banco de Comercio (hoy BBVA Bancomer) y, más tarde, en el Banco de México, donde llegó a ocupar los cargos de Director General y posteriormente de Gobernador. Durante su gestión lideró importantes transformaciones, entre ellas la creación del Nuevo Peso en 1992 y la transición hacia la autonomía del Banco de México en 1994.
+            </p>
+            <p>
+              Ha participado activamente en distintos consejos y patronatos de instituciones dedicadas a la cultura, la educación y la filantropía, entre ellas el Museo Nacional de Arte, la Fundación Gonzalo Río Arronte, el Fondo Mexicano para la Conservación de la Naturaleza y el Centro Mexicano para la Filantropía. Su compromiso con el servicio público y la educación le ha valido reconocimientos nacionales e internacionales, entre ellos el Premio de Economía Rey Juan Carlos de España y el Doctorado Honoris Causa otorgado por el ITAM en 2006.
+            </p>
+            <p>
+              En 1994, Don Miguel fundó el fideicomiso Beca Miguel Mancera con el propósito de "devolver a la sociedad y al ITAM algo de lo que he recibido de ellos". Desde entonces, esta beca ha beneficiado a más de 300 estudiantes con apoyos de manutención que les permiten continuar sus estudios y alcanzar su máximo potencial.
+            </p>
+            <p>
+              Su visión, liderazgo y generosidad siguen siendo un ejemplo de compromiso con la educación y con México.
+            </p>
+          </div>
+        </article>
+
+        <!-- Fondo Javier Beristain -->
+        <article id="fondo-javier-beristain" class="scholarship-section reveal">
+          <h3>Fondo Javier Beristain</h3>
+          <p>
+            En 2009, un grupo de amigos de Don Javier Beristain Iturbide decidió honrar su memoria constituyendo un fideicomiso destinado a otorgar becas de manutención y alojamiento a estudiantes con necesidad económica provenientes del interior de la República.
+          </p>
+          <p>
+            Esta iniciativa refleja el compromiso de Don Javier con la educación y su convicción de que "México debe ser un país más justo, cuyo eje motor sea la educación de calidad en todos sus niveles y en todos los rincones del país".
+          </p>
+          <p>
+            Con tu aportación, puedes apoyar a estudiantes de excelencia académica cuyas familias enfrentan dificultades económicas que ponen en riesgo su permanencia en el ITAM. Los becarios reciben $4,500 pesos mensuales para alojamiento y $2,500 pesos para manutención, lo que les permite concentrarse plenamente en sus estudios y alcanzar sus metas.
+          </p>
+          <p>
+            El ITAM absorbe los costos administrativos, por lo que el 100% de tu donativo llega directamente al estudiante.
+          </p>
+          <p>
+            Tu apoyo brinda oportunidades reales y da continuidad al sueño de Don Javier: hacer de la educación un motor de cambio para México.
+          </p>
+          <div class="button-row">
+            <a class="btn-primary" href="#">Donar por tarjeta: Liga directa al Fondo JB</a>
+            <a class="btn-outline" href="#">Donar por transferencia</a>
+            <a class="btn-outline" href="#">Lineamientos</a>
+            <a class="btn-outline" href="#">Reporte Anual</a>
+            <a class="btn-outline" href="#">Reportes Pasados</a>
+            <a class="btn-outline" href="https://donar.itam.mx/es/69/paginas/antecedentes-javier-beristain" target="_blank" rel="noopener">Historia</a>
+          </div>
+        </article>
+
+        <!-- Fondo Rurik Magos -->
+        <article id="fondo-rurik-magos" class="scholarship-section reveal">
+          <h3>Fondo Rurik Magos</h3>
+          <p>
+            En 2013, casi un año después de la lamentable pérdida de Rurik Magos Acosta, exalumno del ITAM, su familia decidió honrar su memoria mediante la creación de una beca de manutención. La pasión por el estudio y la vocación altruista de Rurik inspiraron a sus padres y hermanos a preservar su legado en la institución.
+          </p>
+          <p>
+            La familia Magos Acosta y el ITAM iniciaron este esfuerzo junto con la comunidad ITAM para apoyar a estudiantes destacados de las carreras de Actuaría, Contaduría Pública y Estrategia Financiera, Dirección Financiera, Matemáticas Aplicadas y Ciencia de Datos, cuya situación económica compromete su desempeño académico y su permanencia en la institución.
+          </p>
+          <p>
+            Con tu aportación, podrás ayudar a que más estudiantes de estas disciplinas alcancen sus metas personales y profesionales, contribuyendo así al desarrollo de nuestra sociedad.
+          </p>
+          <p>
+            Tus donativos son deducibles de impuestos y se destinan en su totalidad a becas de $2,500 pesos mensuales para cubrir gastos de manutención. El ITAM absorbe todos los costos administrativos, por lo que tu apoyo llega íntegro a los becarios.
+          </p>
+          <div class="button-row">
+            <a class="btn-primary" href="#">Donar por tarjeta: Liga directa al Fondo RM</a>
+            <a class="btn-outline" href="#">Donar por transferencia</a>
+            <a class="btn-outline" href="#">Lineamientos</a>
+            <a class="btn-outline" href="#">Reporte Anual</a>
+            <a class="btn-outline" href="#">Reportes Pasados</a>
+            <a class="btn-outline" href="#">Historia</a>
+          </div>
+
+          <div class="scholarship-meta">
+            <h4>Historia de Rurik Magos Acosta</h4>
+            <p>
+              Rurik Magos Acosta nació en la Ciudad de México el 24 de agosto de 1972. Junto con su hermano gemelo Erik, completó la familia Magos Acosta, conformada por sus padres Jorge y Bety, y su hermana Yazmín.
+            </p>
+            <p>
+              Desde niño fue curioso, disciplinado y determinado. Practicó karate, guitarra, gimnasia olímpica y natación, pero su verdadera vocación fue el estudio. Estudió Actuaría en el ITAM, carrera que eligió por el reto intelectual que representaba.
+            </p>
+            <p>
+              Como comparte su hermana Yazmín:
+            </p>
+            <p class="quote">
+              "El propósito de crear la Beca Rurik Magos Acosta fue honrar la vocación de estudiar de mi hermano y lo que nos inculcaron nuestros padres: no hay mejor regalo que la educación. Rurik era una persona generosa, curiosa, inteligente y sin malicia. Desde niño, incluso sin que nadie se lo pidiera, buscaba ayudar a los demás."
+            </p>
+          </div>
+        </article>
+
+        <!-- Fondo Amigos de Río Hondo -->
+        <article id="fondo-amigos-rio-hondo" class="scholarship-section reveal">
+          <h3>Fondo Amigos de Río Hondo</h3>
+          <p>
+            Cada generación académica es valiosa, pero algunas tienen la fortuna de coincidir en momentos emblemáticos. Ese es el caso de nuestra generación: la de los Amigos de Río Hondo.
+          </p>
+          <p>
+            Fuimos una generación en debate permanente, diversa en nuestras ideas sobre el mundo y el país, distinta en las rutas que elegimos, pero unida por una experiencia común. Décadas después, seguimos coincidiendo, compitiendo, construyendo y, sobre todo, reconociéndonos como una comunidad que, aunque dispersa, se mantiene unida por un lazo real y profundo.
+          </p>
+          <p>
+            De esas coincidencias y de ese sentido de pertenencia nació esta beca. Surgió, como tantas buenas ideas, de conversaciones espontáneas, de un foro en nuestros teléfonos que se transformó en una causa formal y compartida.
+          </p>
+          <p>
+            Nos enorgullece haber convertido el diálogo y la nostalgia en un compromiso tangible con el ITAM y con las nuevas generaciones. Lo hacemos porque sabemos que el ITAM cambió nuestras vidas y porque seguimos creyendo, con convicción, que México puede cambiar una persona a la vez.
+          </p>
+          <div class="button-row">
+            <a class="btn-primary" href="#">Donar por tarjeta: Liga directa al Fondo ARH</a>
+            <a class="btn-outline" href="#">Donar por transferencia</a>
+            <a class="btn-outline" href="#">Lineamientos</a>
+            <a class="btn-outline" href="#">Reporte Anual</a>
+            <a class="btn-outline" href="#">Reportes Pasados</a>
+          </div>
+        </article>
+
+        <!-- Fondo Baleños por la Educación -->
+        <article id="fondo-bal" class="scholarship-section reveal">
+          <h3>Fondo Baleños por la Educación</h3>
+          <p>
+            Los colaboradores de Grupo BAL se unieron para crear un fondo de becas destinado a estudiantes destacados cuya situación económica podría comprometer su permanencia en el ITAM.
+          </p>
+          <p>
+            La Beca Baleños por la Educación brinda un apoyo mensual de $2,500 pesos para cubrir gastos de manutención. Adicionalmente, los alumnos provenientes del interior de la República reciben $4,500 pesos para alojamiento, permitiéndoles concentrarse plenamente en su desarrollo académico.
+          </p>
+          <p>
+            Gracias a la solidaridad de la comunidad de Grupo BAL, más jóvenes con talento pueden continuar sus estudios y construir un futuro lleno de oportunidades.
+          </p>
+          <div class="button-row">
+            <a class="btn-primary" href="#">Donar por tarjeta: Liga directa al Fondo Bal</a>
+            <a class="btn-outline" href="#">Donar por transferencia</a>
+            <a class="btn-outline" href="#">Lineamientos</a>
+            <a class="btn-outline" href="#">Reporte Anual</a>
+            <a class="btn-outline" href="#">Reportes Pasados</a>
+          </div>
+        </article>
+
+        <!-- Fondo de Intercambio Académico -->
+        <article id="fondo-intercambio" class="scholarship-section reveal">
+          <h3>Fondo de Intercambio Académico</h3>
+          <p>
+            La Beca de Intercambio ITAM fue creada por un grupo de exalumnos comprometidos con brindar nuevas oportunidades a los becarios de manutención, permitiéndoles expandir sus horizontes académicos y personales a través de un intercambio internacional en alguna de las más de 150 universidades con las que el ITAM tiene convenio.
+          </p>
+          <p>
+            Esta beca cubre los principales gastos de un semestre en el extranjero: boleto de avión, manutención, alojamiento, seguro médico, visa de estudiante y los costos administrativos relacionados con la revalidación e inscripción de materias.
+          </p>
+          <p>
+            El apoyo estimado por estudiante es de $150,000 pesos por semestre. El monto se entrega íntegramente al becario, ya que el ITAM no cobra costos de administración.
+          </p>
+          <div class="button-row">
+            <a class="btn-primary" href="#">Donar por tarjeta: Liga directa al Fondo de Intercambio Académico</a>
+            <a class="btn-outline" href="#">Donar por transferencia</a>
+            <a class="btn-outline" href="#">Lineamientos</a>
+            <a class="btn-outline" href="#">Reporte Anual</a>
+            <a class="btn-outline" href="#">Reportes Pasados</a>
+          </div>
+        </article>
+
+        <!-- Fondo Alonso Lujambio -->
+        <article id="fondo-alonso-lujambio" class="scholarship-section reveal">
+          <h3>Fondo Alonso Lujambio</h3>
+          <p>
+            En el marco conmemorativo de los 25 años de la transformación de la Licenciatura en Ciencias Sociales a Ciencia Política, y con el apoyo del Centro de Estudios Alonso Lujambio y María Teresa Toca, se creó este fondo con el propósito de preservar el legado de Alonso Lujambio y apoyar a estudiantes de excelencia académica y recursos limitados de la Licenciatura en Ciencia Política.
+          </p>
+          <p>
+            La Beca Académica Alonso Lujambio otorga $2,500 pesos mensuales para gastos de manutención y $3,500 pesos adicionales para alojamiento a los alumnos que presenten necesidad económica.
+          </p>
+          <div class="button-row">
+            <a class="btn-primary" href="#">Donar por tarjeta: Liga directa al Fondo de Alonso Lujambio</a>
+            <a class="btn-outline" href="#">Donar por transferencia</a>
+            <a class="btn-outline" href="#">Lineamientos</a>
+            <a class="btn-outline" href="#">Reporte Anual</a>
+            <a class="btn-outline" href="#">Reportes Pasados</a>
+          </div>
+        </article>
+
+        <!-- Fondo MIPi -->
+        <article id="fondo-mipi" class="scholarship-section reveal">
+          <h3>Fondo MIPi</h3>
+          <p>
+            Un grupo de mujeres egresadas del ITAM, comprometidas con la educación y la igualdad de género, se unió para crear un fondo de becas académicas y de manutención destinado a alumnas sobresalientes provenientes de familias con recursos limitados. Además del apoyo económico, el fondo ofrece acompañamiento integral durante toda su trayectoria universitaria.
+          </p>
+          <p>
+            La Beca MIPI tiene como propósito impulsar la participación de mujeres líderes en el ITAM. Su meta es aumentar el número de alumnas en las distintas carreras de la institución, otorgándoles el financiamiento necesario según su perfil y necesidades.
+          </p>
+          <p>
+            El apoyo de MIPI no se limita a lo financiero: también promueve el desarrollo personal y profesional de las estudiantes mediante programas de liderazgo que fortalecen sus habilidades y su confianza para construir una carrera exitosa.
+          </p>
+          <div class="button-row">
+            <a class="btn-primary" href="#">Donar por tarjeta: Liga directa al Fondo MIPi</a>
+            <a class="btn-outline" href="#">Donar por transferencia</a>
+            <a class="btn-outline" href="#">Lineamientos</a>
+            <a class="btn-outline" href="#">Reporte Anual</a>
+            <a class="btn-outline" href="#">Reportes Pasados</a>
+          </div>
+        </article>
+
+        <!-- Fondo AEF -->
+        <article id="fondo-aef" class="scholarship-section reveal">
+          <h3>Fondo AEF</h3>
+          <p>
+            Durante más de 20 años, la Asociación de Estudiantes Foráneos (AEF) ha beneficiado a más de 100 estudiantes del ITAM provenientes de distintas regiones del país. Su objetivo es mejorar la calidad de vida de los alumnos foráneos mediante becas y subsidios que apoyan dos aspectos esenciales: la alimentación y la movilidad.
+          </p>
+          <p>
+            El Programa de Becas y Subsidios AEF nació para responder a las necesidades reales de los estudiantes foráneos y hacer una diferencia tangible en su vida universitaria.
+          </p>
+          <p>
+            Tus donativos se destinan directamente a fortalecer la economía de los estudiantes foráneos a través de becas y subsidios alimenticios y de transporte, que les permiten cubrir hasta 25 comidas y 40 viajes al mes.
+          </p>
+          <div class="button-row">
+            <a class="btn-primary" href="#">Donar por tarjeta: Liga directa al Fondo AEF</a>
+            <a class="btn-outline" href="#">Donar por transferencia</a>
+          </div>
+        </article>
+
+        <!-- Fondo Colegio de Abogados -->
+        <article id="fondo-colegio-abogados" class="scholarship-section reveal">
+          <h3>Fondo Colegio de Abogados</h3>
+          <p>
+            El Fondo Colegio de Abogados fue creado por un grupo de exalumnos de Derecho comprometidos con apoyar a estudiantes de excelencia académica y recursos limitados para que pudieran concluir sus estudios en el ITAM.
+          </p>
+          <p>
+            Durante su periodo activo, el fondo otorgó becas de manutención de $2,500 pesos mensuales para cubrir gastos de alimentación y transporte, y apoyos adicionales de $3,500 pesos para alojamiento a estudiantes foráneos.
+          </p>
+          <p>
+            Actualmente, el fondo ha concluido su etapa activa, pero su espíritu de compromiso con la educación y la justicia social permanece como parte del legado de quienes lo hicieron posible.
+          </p>
+          <div class="button-row">
+            <a class="btn-outline" href="#">Reportes Pasados</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PESTAÑA PROYECCIÓN ITAM -->
+    <section id="proyeccion-itam" class="section-dark">
+      <div class="container">
+        <div class="section-eyebrow"></div>
+        <h2>Proyección ITAM</h2>
+        <p style="color:rgba(255,255,255,.8);max-width:680px;">
+          Proyección ITAM reúne a donantes que realizan aportaciones para transformar la vida universitaria y garantizar que el ITAM siga siendo una institución de excelencia.
+        </p>
+
+        <div class="testimonials-grid" style="margin-top:2.5rem;">
+          <div class="testimonial-card reveal">
+            <p class="quote">
+              "La posibilidad de dar a otros lo que yo recibí me impulsó a participar en este valioso proyecto."
+            </p>
+            <p class="testimonial-name">
+              Moisés Tiktin — Profesor del ITAM y Miembro del Consejo Consultivo Proyección ITAM
+            </p>
+          </div>
+          <div class="testimonial-card reveal reveal-delay-1">
+            <p class="quote">
+              "El ITAM me becó al 100% y gracias a eso, hoy soy economista, consultor, profesor y ciudadano comprometido. Sin ese apoyo, nada de esto habría sido posible."
+            </p>
+            <p class="testimonial-name">
+              Luis de la Calle — Director General de DLM Consultores
+            </p>
+          </div>
+        </div>
+
+        <div class="scholarship-section" style="border-color:rgba(255,255,255,.12);margin-top:2.5rem;">
+          <p style="color:rgba(255,255,255,.8);font-size:1.05rem;max-width:680px;">
+            Invertir en Proyección ITAM es apostar por el desarrollo del país a través del talento. Tu donativo no solo cambia una vida; transforma familias, comunidades y el futuro de México.
+          </p>
+          <div class="button-row">
+            <a class="btn-gold" href="#">Dona con nosotros →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PESTAÑA IMPACTO -->
+    <section id="impacto-pestana">
+      <div class="container">
+        <div class="section-eyebrow"></div>
+        <h2 class="reveal">Impacto</h2>
+        <p class="reveal">
+          En el ITAM, cada beca abre caminos. Conoce a algunos de los estudiantes que, gracias al apoyo de nuestros donantes, están cumpliendo sus sueños.
+        </p>
+
+        <div class="testimonials-grid">
+          <article class="testimonial-card reveal">
+            <h3 style="font-size:1rem;color:var(--green-dark);margin-bottom:.75rem;">Danya Gómez – Fondo Baillères e Intercambio</h3>
+            <p>
+              Desde Monterrey, Danya dejó su hogar para estudiar dos carreras y perseguir un sueño. Gracias a tu donativo, más historias como la suya pueden despegar.
+            </p>
+            <div class="button-row" style="margin-top:1rem;">
+              <a href="https://itam2-my.sharepoint.com/:v:/g/personal/camila_aya_itam_mx/EceH5BE3XYxFtX-IiCONZRUB44TPHvHJC7CsVDGVtuJEfQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=5Rab2g" class="btn-outline" target="_blank" rel="noopener">▶ Ver video</a>
+            </div>
+          </article>
+
+          <article class="testimonial-card reveal reveal-delay-1">
+            <h3 style="font-size:1rem;color:var(--green-dark);margin-bottom:.75rem;">Andrea – Fondo Baleños por la Educación</h3>
+            <p>
+              Desde Oaxaca, Andrea llegó al ITAM con sueños grandes y retos aún mayores. Gracias a tu donativo, encontró respaldo, alivio y un camino para seguir creciendo.
+            </p>
+            <div class="button-row" style="margin-top:1rem;">
+              <a href="https://itam2-my.sharepoint.com/:v:/g/personal/camila_aya_itam_mx/Ee6cuxGM6nZKhYU6X-nKBCkBnwRbMxDwLnI36NGrsJYxEg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=rmdEB0" class="btn-outline" target="_blank" rel="noopener">▶ Ver video</a>
+            </div>
+          </article>
+
+          <article class="testimonial-card reveal">
+            <h3 style="font-size:1rem;color:var(--green-dark);margin-bottom:.75rem;">Oswaldo – Fondo Nuestro ITAM</h3>
+            <p>
+              Oswaldo encontró en la Beca Nuestro ITAM la oportunidad de continuar sus estudios y cumplir sus metas. Conoce cómo tu apoyo puede transformar vidas como la suya.
+            </p>
+            <div class="button-row" style="margin-top:1rem;">
+              <a href="https://itam2-my.sharepoint.com/:v:/g/personal/camila_aya_itam_mx/ERVEngQgt-JMiIr9ZSGmp6ABZ95yulDNdtCb7UD1txaNnA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=tg6MZR" class="btn-outline" target="_blank" rel="noopener">▶ Ver video</a>
+            </div>
+          </article>
+
+          <article class="testimonial-card reveal reveal-delay-1">
+            <h3 style="font-size:1rem;color:var(--green-dark);margin-bottom:.75rem;">Daniel Silvestre – Fondo Mancera</h3>
+            <p>Descubre como la Beca Miguel Mancera cambió la vida de Silvestre.</p>
+            <div class="button-row" style="margin-top:1rem;">
+              <a href="https://itam2-my.sharepoint.com/:v:/g/personal/camila_aya_itam_mx/EVukUXq5s6REu4XVBFKHBRoBn7n7qmfkLYnFUtqs_gbsyg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=3XfJuY" class="btn-outline" target="_blank" rel="noopener">▶ Ver video</a>
+            </div>
+          </article>
+
+          <article class="testimonial-card reveal">
+            <h3 style="font-size:1rem;color:var(--green-dark);margin-bottom:.75rem;">Ana Sofía – Fondo Nuestro ITAM</h3>
+            <p class="quote">
+              "Mi situación familiar es complicada, y muchas veces lo económico ha sido una carga pesada, especialmente para mi mamá y mis abuelos.
+              Gracias a la beca de manutención, ese peso ha disminuido enormemente. Ya no tengo que preocuparme por si podré comprar comida en la universidad o cubrir mis necesidades básicas para seguir estudiando.
+              Este apoyo no solo me ayuda económicamente, también me da tranquilidad y una gran motivación para seguir esforzándome."
+            </p>
+          </article>
+
+          <article class="testimonial-card reveal reveal-delay-1">
+            <h3 style="font-size:1rem;color:var(--green-dark);margin-bottom:.75rem;">Arturo – Fondo de Intercambio</h3>
+            <p class="quote">
+              "Gracias a la beca del Fondo de Intercambio, viví una experiencia que antes solo podía soñar: estudiar en la Universidad de Ulm, en Alemania.
+              Cada día era una nueva oportunidad para aprender, descubrir y agradecer. Vi la Torre Eiffel, esquié por primera vez, nadé en un lago bajo las estrellas y conocí lugares que solo había imaginado. Pero, sobre todo, me transformé como persona."
+            </p>
+          </article>
+
+          <article class="testimonial-card reveal">
+            <h3 style="font-size:1rem;color:var(--green-dark);margin-bottom:.75rem;">Jorge – Fondo Miguel Mancera</h3>
+            <p class="quote">
+              "Estudio Economía en el ITAM y estoy por comenzar mi quinto semestre. El camino hasta aquí no ha sido sencillo: además de los retos académicos, existen desafíos fuera del aula que impactan directamente en nuestro desempeño.
+              Gracias al apoyo del Fondo Miguel Mancera, esos factores externos se han aligerado y puedo concentrarme en aprovechar al máximo mi educación."
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PESTAÑA DONANTES -->
+    <div class="impact-strip">
+      <div class="container reveal">
+        <h2>Únete a nuestra comunidad de donantes</h2>
+        <p>
+          Gracias a la generosidad de miles de exalumnos, profesores, colaboradores y amigos del ITAM, más de 800 jóvenes han podido continuar sus estudios y transformar su vida a través de la educación.
+        </p>
+        <a class="btn-gold" href="#fondo-nuestro-itam">Dona ahora →</a>
+      </div>
+    </div>
+
+    <section id="donantes" class="section-alt">
+      <div class="container">
+        <div class="section-eyebrow"></div>
+        <h2 class="reveal">Donantes</h2>
+        <p class="reveal">
+          Gracias a la generosidad de miles de exalumnos, profesores, colaboradores y amigos del ITAM, más de 800 jóvenes han podido continuar sus estudios y transformar su vida a través de la educación.
+        </p>
+        <p class="reveal">
+          Cada donativo —grande o pequeño— forma parte de una cadena de apoyo que transforma vidas. Detrás de cada beca hay una historia de compromiso, empatía y confianza en la educación como motor de cambio.
+        </p>
+        <p class="reveal">
+          Nuestra comunidad de donantes representa lo mejor del espíritu ITAM: personas que deciden compartir lo que han recibido, creyendo que el conocimiento y la oportunidad deben llegar más lejos.
+        </p>
+        <div class="button-row reveal">
+          <a class="btn-primary" href="#fondo-nuestro-itam">Dona ahora</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- OTRAS INICIATIVAS -->
+    <section id="otras-iniciativas">
+      <div class="container">
+        <div class="section-eyebrow"></div>
+        <h2 class="reveal">Otras iniciativas que transforman</h2>
+        <p class="reveal">
+          Además de los programas de becas y apoyo estudiantil, el ITAM impulsa proyectos que fortalecen la formación integral, la investigación y el espíritu emprendedor de nuestros estudiantes.
+        </p>
+
+        <div class="initiatives-grid">
+          <article class="initiative-card reveal">
+            <div>
+              <div class="initiative-icon">🚀</div>
+              <h3>EPIC Lab – Emprendimiento e Innovación</h3>
+              <p>
+                EPIC Lab es el centro de creatividad, innovación y emprendimiento del ITAM. Promueve que los estudiantes desarrollen ideas y proyectos que se conviertan en empresas de alto impacto.
+              </p>
+              <p>
+                Tu donativo impulsa la cultura emprendedora, fomenta la colaboración multidisciplinaria y fortalece el ecosistema de innovación universitaria.
+              </p>
+            </div>
+            <div class="button-row">
+              <a class="btn-outline" href="#">Donar</a>
+            </div>
+          </article>
+
+          <article class="initiative-card reveal reveal-delay-1">
+            <div>
+              <div class="initiative-icon">🎵</div>
+              <h3>ITAMMúsica – Cultura y arte</h3>
+              <p>
+                ITAMMúsica busca que los integrantes de nuestra comunidad mantengan viva su relación con la música y las artes. Fomenta la sensibilidad artística como parte de una educación integral.
+              </p>
+              <p>
+                Gracias a los donativos, más estudiantes pueden continuar su formación musical y participar en actividades culturales dentro del ITAM.
+              </p>
+            </div>
+            <div class="button-row">
+              <a class="btn-outline" href="https://donar.itam.mx/es/69/webforms/contacto-itam-musica" target="_blank" rel="noopener">Donar</a>
+            </div>
+          </article>
+
+          <article class="initiative-card reveal reveal-delay-2">
+            <div>
+              <div class="initiative-icon">🔬</div>
+              <h3>Cátedras ITAM – Investigación y docencia</h3>
+              <p>
+                El Sistema de Cátedras ITAM apoya la investigación científica y la excelencia docente.
+              </p>
+              <p>
+                Con tu donativo, fortaleces la labor de profesores e investigadores que generan conocimiento, publican estudios y forman a las próximas generaciones de líderes.
+              </p>
+            </div>
+            <div class="button-row">
+              <a class="btn-outline" href="https://donar.itam.mx/es/69/webforms/contacto-catedras" target="_blank" rel="noopener">Donar</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="section-blue">
+      <div class="container">
+        <div class="section-eyebrow"></div>
+        <h2 class="reveal">Contacto</h2>
+        <p class="reveal">
+          ¿Tienes dudas o quieres hacer tu donativo por otro medio? La Oficina de Procuración de Fondos del ITAM está para ayudarte.
+        </p>
+
+        <div class="highlight-box reveal" style="margin-bottom:2rem;">
+          <p>📞 <strong>(55) 5628-4000 ext. 1604</strong> &nbsp;·&nbsp; ✉️ <a href="mailto:donar@itam.mx" style="color:var(--green-dark);font-weight:700;">donar@itam.mx</a></p>
+        </div>
+
+        <p class="reveal">También puedes dejarnos tus datos y con gusto te contactaremos:</p>
+
+        <form class="form-grid form-grid-two reveal">
+          <div>
+            <label for="contact-nombre">Nombre completo*</label>
+            <input type="text" id="contact-nombre" name="nombre" required>
+          </div>
+          <div>
+            <label for="contact-email">Correo electrónico*</label>
+            <input type="email" id="contact-email" name="email" required>
+          </div>
+          <div>
+            <label for="contact-telefono">Teléfono (opcional)</label>
+            <input type="tel" id="contact-telefono" name="telefono">
+          </div>
+          <div style="grid-column:1 / -1;">
+            <label for="contact-comentarios">Comentarios o motivo de contacto*</label>
+            <textarea id="contact-comentarios" name="comentarios" required></textarea>
+          </div>
+          <div style="grid-column:1 / -1; margin-top:.5rem;">
+            <button type="submit" class="btn-primary">Enviar mensaje →</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FORMULARIO DE DONATIVO WIZARD -->
+    <section id="formulario-donativo">
+      <div class="container">
+        <div class="section-eyebrow"></div>
+        <h2 class="reveal">Formulario de donativo</h2>
+        <p class="reveal">
+          Para mejorar la experiencia de usuario, el formulario se organiza en pasos. El donante ve una parte del formulario a la vez y puede avanzar conforme completa cada bloque.
+        </p>
+
+        <!-- Radios de control para los pasos -->
+        <input type="radio" name="wizard-steps" id="step1" class="wizard-radio" checked>
+        <input type="radio" name="wizard-steps" id="step2" class="wizard-radio">
+        <input type="radio" name="wizard-steps" id="step3" class="wizard-radio">
+        <input type="radio" name="wizard-steps" id="step4" class="wizard-radio">
+
+        <div class="donation-wizard">
+          <div class="wizard-steps">
+            <div class="wizard-step step1">① Selecciona tu donativo</div>
+            <div class="wizard-step step2">② Datos personales</div>
+            <div class="wizard-step step3">③ Método de pago</div>
+            <div class="wizard-step step4">④ Confirmación</div>
+          </div>
+
+          <div class="wizard-progress">
+            <div class="wizard-progress-bar"></div>
+          </div>
+
+          <!-- PASO 1 -->
+          <div class="wizard-step-content step1">
+            <h3>Paso 1 — Selecciona tu donativo</h3>
+            <div class="form-grid">
+              <div>
+                <label>Frecuencia de aportación:</label>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem;">
+                  <div class="amount-option">
+                    <input type="radio" name="frecuencia" id="f-mensual" value="mensual">
+                    <label for="f-mensual">Mensual</label>
+                  </div>
+                  <div class="amount-option">
+                    <input type="radio" name="frecuencia" id="f-anual" value="anual">
+                    <label for="f-anual">Anual</label>
+                  </div>
+                  <div class="amount-option">
+                    <input type="radio" name="frecuencia" id="f-unica" value="unica">
+                    <label for="f-unica">Única</label>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label>Monto de donativo:</label>
+                <div class="amount-options">
+                  <div class="amount-option">
+                    <input type="radio" name="monto" id="m-250" value="250">
+                    <label for="m-250">$250</label>
+                  </div>
+                  <div class="amount-option">
+                    <input type="radio" name="monto" id="m-450" value="450">
+                    <label for="m-450">$450</label>
+                  </div>
+                  <div class="amount-option">
+                    <input type="radio" name="monto" id="m-600" value="600">
+                    <label for="m-600">$600</label>
+                  </div>
+                  <div class="amount-option">
+                    <input type="radio" name="monto" id="m-1000" value="1000">
+                    <label for="m-1000">$1,000</label>
+                  </div>
+                  <div class="amount-option">
+                    <input type="radio" name="monto" id="m-2000" value="2000">
+                    <label for="m-2000">$2,000</label>
+                  </div>
+                </div>
+                <div style="margin-top:1rem;">
+                  <label for="monto-otro">Otra cantidad (MXN):</label>
+                  <input type="number" id="monto-otro" name="monto_otro" min="0" step="50" style="max-width:180px;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 2 -->
+          <div class="wizard-step-content step2">
+            <h3>Paso 2 — Datos personales</h3>
+            <div class="form-grid form-grid-two">
+              <div>
+                <label>¿Eres exalumno?</label>
+                <select name="exalumno">
+                  <option value="">Selecciona una opción</option>
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div>
+                <label for="wizard-email">E-mail*</label>
+                <input type="email" id="wizard-email" name="wizard-email">
+              </div>
+              <div>
+                <label for="wizard-nombre">Nombre(s)*</label>
+                <input type="text" id="wizard-nombre" name="wizard-nombre">
+              </div>
+              <div>
+                <label for="wizard-apellido-paterno">Apellido paterno*</label>
+                <input type="text" id="wizard-apellido-paterno" name="wizard-apellido-paterno">
+              </div>
+              <div>
+                <label for="wizard-apellido-materno">Apellido materno</label>
+                <input type="text" id="wizard-apellido-materno" name="wizard-apellido-materno">
+              </div>
+              <div>
+                <label for="wizard-fecha-nacimiento">Fecha de nacimiento*</label>
+                <input type="date" id="wizard-fecha-nacimiento" name="wizard-fecha-nacimiento">
+              </div>
+              <div>
+                <label for="wizard-celular">Teléfono celular*</label>
+                <input type="tel" id="wizard-celular" name="wizard-celular">
+              </div>
+              <div>
+                <label for="wizard-fijo">Teléfono fijo</label>
+                <input type="tel" id="wizard-fijo" name="wizard-fijo">
+              </div>
+              <div>
+                <label for="wizard-pais">País</label>
+                <input type="text" id="wizard-pais" name="wizard-pais" value="México">
+              </div>
+              <div>
+                <label for="wizard-estado">Estado</label>
+                <input type="text" id="wizard-estado" name="wizard-estado">
+              </div>
+              <div>
+                <label for="wizard-ciudad">Ciudad / Alcaldía o municipio</label>
+                <input type="text" id="wizard-ciudad" name="wizard-ciudad">
+              </div>
+              <div>
+                <label for="wizard-colonia">Colonia</label>
+                <input type="text" id="wizard-colonia" name="wizard-colonia">
+              </div>
+              <div>
+                <label for="wizard-cp">Código postal</label>
+                <input type="text" id="wizard-cp" name="wizard-cp">
+              </div>
+              <div>
+                <label for="wizard-calle">Calle</label>
+                <input type="text" id="wizard-calle" name="wizard-calle">
+              </div>
+              <div>
+                <label for="wizard-num-ext"># ext</label>
+                <input type="text" id="wizard-num-ext" name="wizard-num-ext">
+              </div>
+              <div>
+                <label for="wizard-num-int"># int</label>
+                <input type="text" id="wizard-num-int" name="wizard-num-int">
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 3 -->
+          <div class="wizard-step-content step3">
+            <h3>Paso 3 — Método de pago</h3>
+            <div class="form-grid form-grid-two">
+              <div>
+                <label for="wizard-nombre-tarjeta">Nombre como aparece en la tarjeta*</label>
+                <input type="text" id="wizard-nombre-tarjeta" name="wizard-nombre-tarjeta">
+              </div>
+              <div>
+                <label for="wizard-numero-tarjeta">Número de tarjeta*</label>
+                <input type="text" id="wizard-numero-tarjeta" name="wizard-numero-tarjeta">
+              </div>
+              <div>
+                <label for="wizard-mes-vencimiento">Mes de vencimiento*</label>
+                <input type="text" id="wizard-mes-vencimiento" name="wizard-mes-vencimiento" placeholder="MM">
+              </div>
+              <div>
+                <label for="wizard-anio-vencimiento">Año de vencimiento*</label>
+                <input type="text" id="wizard-anio-vencimiento" name="wizard-anio-vencimiento" placeholder="AAAA">
+              </div>
+              <div>
+                <label for="wizard-tipo-tarjeta">Tipo de tarjeta*</label>
+                <select id="wizard-tipo-tarjeta" name="wizard-tipo-tarjeta">
+                  <option value="">Selecciona una opción</option>
+                  <option value="visa-mc">Visa-MasterCard</option>
+                  <option value="amex">Amex</option>
+                </select>
+              </div>
+              <div style="display:flex;align-items:center;gap:.5rem;padding-top:1.5rem;">
+                <input type="checkbox" id="wizard-factura" name="wizard-factura" style="width:auto;">
+                <label for="wizard-factura" style="margin:0;font-weight:400;cursor:pointer;">Requiero factura de mi donativo</label>
+              </div>
+            </div>
+
+            <div class="form-grid form-grid-two" style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+              <p style="grid-column:1/-1;font-size:.85rem;color:var(--text-muted);margin-bottom:.25rem;">Datos de facturación (si aplica):</p>
+              <div>
+                <label for="wizard-rfc">RFC</label>
+                <input type="text" id="wizard-rfc" name="wizard-rfc">
+              </div>
+              <div>
+                <label for="wizard-razon-social">Nombre o Razón social</label>
+                <input type="text" id="wizard-razon-social" name="wizard-razon-social">
+              </div>
+              <div>
+                <label for="wizard-cp-factura">Código postal</label>
+                <input type="text" id="wizard-cp-factura" name="wizard-cp-factura">
+              </div>
+              <div>
+                <label for="wizard-correo-cfdi">Correo de CFDI</label>
+                <input type="email" id="wizard-correo-cfdi" name="wizard-correo-cfdi">
+              </div>
+              <div>
+                <label for="wizard-regimen-fiscal">Régimen Fiscal</label>
+                <input type="text" id="wizard-regimen-fiscal" name="wizard-regimen-fiscal">
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 4 -->
+          <div class="wizard-step-content step4">
+            <h3>Paso 4 — Confirmación y autorización</h3>
+            <div class="form-grid">
+              <div>
+                <label>Autorizo al ITAM publicar mi nombre en la lista de donantes*</label>
+                <select name="publicar-nombre">
+                  <option value="">Selecciona una opción</option>
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div>
+                <label for="wizard-comentarios">Comentarios (campo abierto opcional)</label>
+                <textarea id="wizard-comentarios" name="wizard-comentarios"></textarea>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:.5rem;">
+                <input type="checkbox" id="wizard-aviso-privacidad" name="wizard-aviso-privacidad" style="width:auto;margin-top:3px;">
+                <label for="wizard-aviso-privacidad" style="margin:0;font-weight:400;cursor:pointer;">He leído y acepto el Aviso de Privacidad*</label>
+              </div>
+              <div>
+                <button type="submit" class="btn-primary">Confirmar donativo →</button>
+              </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top:2rem;">
+              <p>🎉 <strong>¡Gracias por creer en la educación como motor de cambio!</strong></p>
+              <p style="margin-top:.5rem;font-weight:400;color:var(--text-muted);">Tu donativo ya está haciendo la diferencia. Hoy te conviertes en parte de una comunidad que impulsa el talento y abre caminos para nuevas generaciones del ITAM.</p>
+            </div>
+          </div>
+
+          <!-- Navegación entre pasos -->
+          <div class="wizard-navigation">
+            <label for="step1" class="wizard-nav-label btn-secondary">① Paso 1</label>
+            <label for="step2" class="wizard-nav-label btn-secondary">② Paso 2</label>
+            <label for="step3" class="wizard-nav-label btn-secondary">③ Paso 3</label>
+            <label for="step4" class="wizard-nav-label btn-secondary">④ Paso 4</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVITA A OTROS -->
+    <section id="invita-otros" class="section-alt">
+      <div class="container reveal">
+        <div class="section-eyebrow"></div>
+        <h2>Invita a otros a transformar vidas contigo</h2>
+        <p>
+          Gracias por tu apoyo. Si conoces a alguien que crea en la educación como tú, compárteles esta iniciativa. Juntos podemos lograr que más jóvenes sigan estudiando en el ITAM.
+        </p>
+        <div class="share-buttons">
+          <a href="#" class="btn-primary">💬 Compartir por WhatsApp</a>
+          <a href="#" class="btn-outline">✉️ Compartir por correo</a>
+          <a href="#" class="btn-outline">🔗 Compartir en LinkedIn</a>
+        </div>
+        <p style="font-size:.85rem;color:var(--text-muted);margin-top:1rem;">
+          Mensaje sugerido: <em>"Yo ya doné al ITAM para apoyar a estudiantes con talento. Súmate en donar.itam.mx"</em>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">ITAM</div>
+          <div style="font-size:.85rem;color:rgba(255,255,255,.5);margin:.25rem 0 .75rem;letter-spacing:.06em;text-transform:uppercase;font-size:.7rem;">Instituto Tecnológico Autónomo de México</div>
+          <p class="footer-tagline">Tu donativo. Nuestros estudiantes. Un mejor México.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Programas</h4>
+          <div class="footer-links">
+            <a href="#impulso-itam">Impulso ITAM</a>
+            <a href="#proyeccion-itam">Proyección ITAM</a>
+            <a href="#becas">Becas</a>
+            <a href="#otras-iniciativas">Otras iniciativas</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <div class="footer-links footer-contact">
+            <a href="tel:+525556284000">(55) 5628-4000 ext. 1604</a>
+            <a href="mailto:donar@itam.mx">donar@itam.mx</a>
+            <a href="#contacto">Formulario de contacto</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ITAM · Todos los derechos reservados</span>
+        <span style="color:rgba(255,255,255,.3);">Your giving. Our experts. Greater impact.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Counter animation
+    function animateCounter(el, target, duration = 1800) {
+      const start = performance.now();
+      const update = (time) => {
+        const elapsed = time - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target).toLocaleString();
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = target.toLocaleString() + (el.dataset.suffix || '');
+      };
+      requestAnimationFrame(update);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const target = parseInt(e.target.dataset.target);
+          if (!isNaN(target)) animateCounter(e.target, target);
+          counterObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+
+    // Header shadow on scroll
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.boxShadow = window.scrollY > 10
+        ? '0 4px 24px rgba(0,0,0,.1)'
+        : '0 2px 20px rgba(0,0,0,.06)';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
